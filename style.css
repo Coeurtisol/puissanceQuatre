@@ -1,19 +1,78 @@
-body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+* {
+  box-sizing: border-box;
 }
 
-table, td, tr {
-    background-color: blue
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #8181e1;
+}
+
+h1 {
+  font-family: monospace;
+  font-size: 52px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.oConnect {
+  color: red;
+  animation: 2s oConnect 2s infinite alternate;
+}
+
+@keyframes oConnect {
+  from {
+    color: red;
+  }
+  to {
+    color: yellow;
+  }
+}
+
+#grid {
+  position: relative;
+  display: flex;
+  background-color: blue;
+}
+
+#grid > div {
+  /*display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;*/
 }
 
 .circle {
-    background-color: white;
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    border: 1px solid darkblue;
-    box-shadow: inset 0px -2px 0px 2px #01013e;
+  background-color: white;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  border: 1px solid darkblue;
+  box-shadow: inset 0px -2px 0px 2px #01013e;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+#clickableColumnContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+}
+
+#clickableColumnContainer > div {
+  width: 50px;
+  height: 300px;
+}
+
+#clickableColumnContainer > div:hover {
+  background-color: rgba(0, 0, 0, 0.25);
 }
