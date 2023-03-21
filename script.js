@@ -26,15 +26,22 @@ class Game {
   };
 
   isFinished = () => {
-    const result = [
+    const currentPlayerHasWon = [
       this.checkVertical(),
       this.checkHorizontal(),
       this.checkDiagonals(),
     ].some((f) => f === true);
-    if (result) {
+    if (currentPlayerHasWon) {
       this.winner = this.currentPlayer;
     }
-    return result;
+    if (this.isGridFull()) {
+      this.winner = null;
+    }
+    return this.winner;
+  };
+
+  isGridFull = () => {
+    return this.pawnsInGrid === this.largeur * this.hauteur;
   };
 
   checkVertical = () => {
@@ -170,11 +177,13 @@ const handleColumnClick = (x) => {
 
   addPawnToDom(pawn);
 
-  if (!game.isFinished()) {
+  const winner = game.isFinished();
+  if (winner === undefined) {
     game.changePlayer();
+  } else if (winner === null) {
+    alert(`Game over, no winner!`);
   } else {
-    // todo : end of game
-    alert(`player ${game.winner} wins!`);
+    alert(`Player ${winner} wins!`);
   }
 };
 
@@ -183,7 +192,6 @@ const addPawnToDom = ({ x, y, color }) => {
 };
 
 // todo:
-// detecter partie nulle
 // fin de partie
 // reset grille
 // afficher score
