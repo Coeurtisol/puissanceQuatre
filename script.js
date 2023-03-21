@@ -70,12 +70,10 @@ class Game {
       ...this.lastPawn,
     };
     while (tempLineSlot.x > -1 && tempLineSlot.y < this.hauteur) {
-      tempLineSlot.x--;
-      tempLineSlot.y++;
+      tempLineSlot.x--, tempLineSlot.y++;
     }
     while (tempLineSlot.x < this.largeur - 1 && tempLineSlot.y > 0) {
-      tempLineSlot.x++;
-      tempLineSlot.y--;
+      tempLineSlot.x++, tempLineSlot.y--;
       tlTObrLine.push(this.grid[tempLineSlot.x][tempLineSlot.y]);
     }
 
@@ -84,15 +82,13 @@ class Game {
       ...this.lastPawn,
     };
     while (tempLineSlot.x > -1 && tempLineSlot.y > -1) {
-      tempLineSlot.x--;
-      tempLineSlot.y--;
+      tempLineSlot.x--, tempLineSlot.y--;
     }
     while (
       tempLineSlot.x < this.largeur - 1 &&
       tempLineSlot.y < this.hauteur - 1
     ) {
-      tempLineSlot.x++;
-      tempLineSlot.y++;
+      tempLineSlot.x++, tempLineSlot.y++;
       blTOtrLane.push(this.grid[tempLineSlot.x][tempLineSlot.y]);
     }
 
@@ -141,8 +137,6 @@ const gridElt = document.getElementById("grid");
 
 const buildGrid = () => {
   gridElt.innerHTML = "";
-  const clickableColumnContainer = document.createElement("div");
-  clickableColumnContainer.id = "clickableColumnContainer";
   for (let x = 0; x < game.largeur; x++) {
     const column = document.createElement("div");
     for (let y = 0; y < game.hauteur; y++) {
@@ -152,14 +146,25 @@ const buildGrid = () => {
       column.prepend(row);
     }
     gridElt.appendChild(column);
+  }
+};
+buildGrid();
 
+const buildClickableColumns = () => {
+  const clickableColumnContainer = document.createElement("div");
+  clickableColumnContainer.id = "clickableColumnContainer";
+  const columnHeight = gridElt.clientHeight + "px";
+  const columnWidth = gridElt.clientWidth / game.largeur + "px";
+  for (let x = 0; x < game.largeur; x++) {
     const clickableColumn = document.createElement("div");
+    clickableColumn.style.height = columnHeight;
+    clickableColumn.style.width = columnWidth;
     clickableColumn.onclick = () => handleColumnClick(x);
     clickableColumnContainer.appendChild(clickableColumn);
     gridElt.appendChild(clickableColumnContainer);
   }
 };
-buildGrid();
+buildClickableColumns();
 
 const handleColumnClick = (x) => {
   const y = game.getFirstFreePosition(x);

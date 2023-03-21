@@ -49,6 +49,7 @@ h1 {
   border-radius: 50%;
   height: 50px;
   width: 50px;
+  margin: 3px;
   border: 1px solid darkblue;
   box-shadow: inset 0px -2px 0px 2px #01013e;
 }
@@ -69,8 +70,8 @@ h1 {
 }
 
 #clickableColumnContainer > div {
-  width: 50px;
-  height: 300px;
+  /* width: 50px;
+  height: 300px; */
 }
 
 #clickableColumnContainer > div:hover {
