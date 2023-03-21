@@ -123,14 +123,6 @@ class Game {
   };
 }
 
-class Pawn {
-  constructor(x, y, color) {
-    this.x = x;
-    this.y = y;
-    this.color = color;
-  }
-}
-
 const game = new Game();
 
 const gridElt = document.getElementById("grid");
@@ -172,7 +164,7 @@ const handleColumnClick = (x) => {
     return;
   }
 
-  const pawn = new Pawn(x, y, game.currentPlayer);
+  const pawn = { x, y, color: game.currentPlayer };
 
   game.addPawn(pawn);
 
