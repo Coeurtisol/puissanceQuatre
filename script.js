@@ -12,6 +12,15 @@ class Game {
   winner = undefined;
   pawnsInGrid = 0;
 
+  resetGame = () => {
+    this.grid = Array.from({ length: this.largeur }, () =>
+      Array.from({ length: this.hauteur }, () => null)
+    );
+    this.changePlayer();
+    this.winner = undefined;
+    this.pawnsInGrid = 0;
+  };
+
   getFirstFreePosition = (x) => {
     return this.grid[x].findIndex((e) => e == null);
   };
@@ -180,10 +189,8 @@ const handleColumnClick = (x) => {
   const winner = game.isFinished();
   if (winner === undefined) {
     game.changePlayer();
-  } else if (winner === null) {
-    alert(`Game over, no winner!`);
   } else {
-    alert(`Player ${winner} wins!`);
+    endGame(winner);
   }
 };
 
@@ -191,7 +198,18 @@ const addPawnToDom = ({ x, y, color }) => {
   document.querySelector(`[data-coord="${x}${y}"]`).classList.add(color);
 };
 
+const endGame = (winner) => {
+  if (winner === null) {
+    alert(`Game over, no winner!`);
+  } else {
+    alert(`Player ${winner} wins!`);
+    game.resetGame();
+    buildGrid();
+    buildClickableColumns();
+  }
+};
+
 // todo:
-// fin de partie
-// reset grille
-// afficher score
+// gérer les scores
+// afficher les scores
+// relance de partie manuelle (bouton)
