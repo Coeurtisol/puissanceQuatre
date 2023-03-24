@@ -1,8 +1,8 @@
 class Game {
-  largeur = 7;
-  hauteur = 6;
-  grid = Array.from({ length: this.largeur }, () =>
-    Array.from({ length: this.hauteur }, () => null)
+  width = 7;
+  height = 6;
+  grid = Array.from({ length: this.width }, () =>
+    Array.from({ length: this.height }, () => null)
   );
   currentPlayer = "yellow";
   scores = {
@@ -13,8 +13,8 @@ class Game {
   pawnsInGrid = 0;
 
   resetGame = () => {
-    this.grid = Array.from({ length: this.largeur }, () =>
-      Array.from({ length: this.hauteur }, () => null)
+    this.grid = Array.from({ length: this.width }, () =>
+      Array.from({ length: this.height }, () => null)
     );
     this.changePlayer();
     this.winner = undefined;
@@ -50,7 +50,7 @@ class Game {
   };
 
   isGridFull = () => {
-    return this.pawnsInGrid === this.largeur * this.hauteur;
+    return this.pawnsInGrid === this.width * this.height;
   };
 
   checkVertical = () => {
@@ -65,7 +65,7 @@ class Game {
 
   generateHorizontal = () => {
     const line = [];
-    for (let x = 0; x < this.largeur; x++) {
+    for (let x = 0; x < this.width; x++) {
       line.push(this.grid[x][this.lastPawn.y]);
     }
     return line;
@@ -85,10 +85,10 @@ class Game {
     let tempLineSlot = {
       ...this.lastPawn,
     };
-    while (tempLineSlot.x > -1 && tempLineSlot.y < this.hauteur) {
+    while (tempLineSlot.x > -1 && tempLineSlot.y < this.height) {
       tempLineSlot.x--, tempLineSlot.y++;
     }
-    while (tempLineSlot.x < this.largeur - 1 && tempLineSlot.y > 0) {
+    while (tempLineSlot.x < this.width - 1 && tempLineSlot.y > 0) {
       tempLineSlot.x++, tempLineSlot.y--;
       tlTObrLine.push(this.grid[tempLineSlot.x][tempLineSlot.y]);
     }
@@ -101,8 +101,8 @@ class Game {
       tempLineSlot.x--, tempLineSlot.y--;
     }
     while (
-      tempLineSlot.x < this.largeur - 1 &&
-      tempLineSlot.y < this.hauteur - 1
+      tempLineSlot.x < this.width - 1 &&
+      tempLineSlot.y < this.height - 1
     ) {
       tempLineSlot.x++, tempLineSlot.y++;
       blTOtrLane.push(this.grid[tempLineSlot.x][tempLineSlot.y]);
@@ -145,9 +145,9 @@ const gridElt = document.getElementById("grid");
 
 const buildGrid = () => {
   gridElt.innerHTML = "";
-  for (let x = 0; x < game.largeur; x++) {
+  for (let x = 0; x < game.width; x++) {
     const column = document.createElement("div");
-    for (let y = 0; y < game.hauteur; y++) {
+    for (let y = 0; y < game.height; y++) {
       const row = document.createElement("div");
       row.classList.add("circle");
       row.dataset.coord = `${x}${y}`;
@@ -162,8 +162,8 @@ const buildClickableColumns = () => {
   const clickableColumnContainer = document.createElement("div");
   clickableColumnContainer.id = "clickableColumnContainer";
   const columnHeight = gridElt.clientHeight + "px";
-  const columnWidth = gridElt.clientWidth / game.largeur + "px";
-  for (let x = 0; x < game.largeur; x++) {
+  const columnWidth = gridElt.clientWidth / game.width + "px";
+  for (let x = 0; x < game.width; x++) {
     const clickableColumn = document.createElement("div");
     clickableColumn.style.height = columnHeight;
     clickableColumn.style.width = columnWidth;
